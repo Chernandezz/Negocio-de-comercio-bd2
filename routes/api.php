@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/clientes', [ClienteController::class, 'index']);
+Route::prefix('/cliente')->group(function(){
+    Route::post('/nuevo', [ClienteController::class, 'nuevo']);
+    Route::put('/{cedula}', [ClienteController::class, 'actualizar']);
+    Route::delete('/{cedula}', [ClienteController::class, 'eliminar']);
 });
