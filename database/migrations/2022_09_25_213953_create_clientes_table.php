@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePRODUCTOFACTURATable extends Migration
+class CreateClientesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreatePRODUCTOFACTURATable extends Migration
      */
     public function up()
     {
-        Schema::create('PRODUCTOFACTURA', function (Blueprint $table) {
-            $table->increments('idProducto');
-            $table->increments('idFactura');
+        Schema::create('clientes', function (Blueprint $table) {
+            $table->string('cedulaCliente', 15)->primary();
+            $table->string('nombreCliente', 30);
+            $table->string('direccionCliente', 40)->nullable();
         });
     }
 
@@ -26,6 +27,6 @@ class CreatePRODUCTOFACTURATable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('PRODUCTOFACTURA');
+        Schema::dropIfExists('clientes');
     }
 }

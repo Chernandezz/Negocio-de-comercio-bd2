@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePROVEEDORPRODUCTOTable extends Migration
+class CreateProveedorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreatePROVEEDORPRODUCTOTable extends Migration
      */
     public function up()
     {
-        Schema::create('PROVEEDORPRODUCTO', function (Blueprint $table) {
+        Schema::create('proveedor', function (Blueprint $table) {
             $table->string('cedulaProveedor', 15)->primary();
-            $table->increments('idProducto');
+            $table->string('telefonoProveedor', 15)->nullable();
         });
     }
 
@@ -26,6 +26,6 @@ class CreatePROVEEDORPRODUCTOTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('PROVEEDORPRODUCTO');
+        Schema::dropIfExists('proveedor');
     }
 }

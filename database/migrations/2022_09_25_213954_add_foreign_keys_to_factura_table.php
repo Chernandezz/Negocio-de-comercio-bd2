@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToFACTURATable extends Migration
+class AddForeignKeysToFacturaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddForeignKeysToFACTURATable extends Migration
      */
     public function up()
     {
-        Schema::table('FACTURA', function (Blueprint $table) {
-            $table->foreign(['cedulaCliente'], 'FK_FACTURA.cedulaCliente')->references(['cedulaCliente'])->on('CLIENTE');
+        Schema::table('factura', function (Blueprint $table) {
+            $table->foreign(['cedulaCliente'], 'FK_FACTURA.cedulaCliente')->references(['cedulaCliente'])->on('clientes');
         });
     }
 
@@ -25,7 +25,7 @@ class AddForeignKeysToFACTURATable extends Migration
      */
     public function down()
     {
-        Schema::table('FACTURA', function (Blueprint $table) {
+        Schema::table('factura', function (Blueprint $table) {
             $table->dropForeign('FK_FACTURA.cedulaCliente');
         });
     }

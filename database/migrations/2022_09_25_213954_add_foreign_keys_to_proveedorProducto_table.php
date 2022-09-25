@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToPROVEEDORPRODUCTOTable extends Migration
+class AddForeignKeysToProveedorProductoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddForeignKeysToPROVEEDORPRODUCTOTable extends Migration
      */
     public function up()
     {
-        Schema::table('PROVEEDORPRODUCTO', function (Blueprint $table) {
-            $table->foreign(['cedulaProveedor'], 'FK_PROVEEDORPRODUCTO.cedulaProveedor')->references(['cedulaProveedor'])->on('PROVEEDOR');
-            $table->foreign(['idProducto'], 'FK_PROVEEDORPRODUCTO.idProducto')->references(['idProducto'])->on('PRODUCTO');
+        Schema::table('proveedorProducto', function (Blueprint $table) {
+            $table->foreign(['cedulaProveedor'], 'FK_PROVEEDORPRODUCTO.cedulaProveedor')->references(['cedulaProveedor'])->on('proveedor');
+            $table->foreign(['idProducto'], 'FK_PROVEEDORPRODUCTO.idProducto')->references(['idProducto'])->on('producto');
         });
     }
 
@@ -26,7 +26,7 @@ class AddForeignKeysToPROVEEDORPRODUCTOTable extends Migration
      */
     public function down()
     {
-        Schema::table('PROVEEDORPRODUCTO', function (Blueprint $table) {
+        Schema::table('proveedorProducto', function (Blueprint $table) {
             $table->dropForeign('FK_PROVEEDORPRODUCTO.cedulaProveedor');
             $table->dropForeign('FK_PROVEEDORPRODUCTO.idProducto');
         });
