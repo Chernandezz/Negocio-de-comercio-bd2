@@ -33,4 +33,29 @@ class ClienteController extends Controller
         }
         return $nuevoCliente;
     }
+
+    public function actualizar(Request $request, $cedula){
+        $clienteExistente = Cliente::find($cedula);
+        if($clienteExistente){
+            $clienteExistente->direccionCliente = $request->cliente['direccion'];
+            $clienteExistente->save();
+            return $clienteExistente;
+        }
+        return response()->json([
+            'mensaje' => "Cliente no encontrado"
+            ], 400);
+    }
+
+    public function eliminar($cedula){
+        $clienteExistente = Cliente::find($cedula);
+        if($clienteExistente){
+            $clienteExistente->delete();
+            return response()->json([
+            'mensaje' => "Cliente eliminado correctamente."
+            ], 200);
+        }
+        return response()->json([
+            'mensaje' => "Cliente no encontrado"
+            ], 400);
+    }
 }
