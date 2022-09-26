@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 
@@ -20,36 +21,41 @@ class ClienteController extends Controller
 
     public function nuevo(Request $request){
         try {
-            $nuevoCliente = new Cliente;
-            $nuevoCliente->cedulaCliente = $request->cliente['cedula'];
-            $nuevoCliente->nombreCliente = $request->cliente['nombre'];
-            $nuevoCliente->direccionCliente = $request->cliente['direccion'];
-            $nuevoCliente->save();
+            DB::table('clientes')->insert([
+                'cedulaCliente' => $request->cliente['cedula'],
+                'nombreCliente' => $request->cliente['nombre'],
+                'direccionCliente' => $request->cliente['direccion'],
+            ]);
+
+            return response()->json([
+                'mensaje' => "Cliente agregado correctamente"
+            ], 200);
 
         } catch (QueryException $e){
             return response()->json([
             'mensaje' => "La cedula ingresada ya esta registrada"
             ], 400);
         }
-        return $nuevoCliente;
+        
     }
 
     public function actualizar(Request $request, $cedula){
-        $clienteExistente = Cliente::find($cedula);
-        if($clienteExistente){
-            $clienteExistente->direccionCliente = $request->cliente['direccion'];
-            $clienteExistente->save();
-            return $clienteExistente;
+        $resultado = DB::table('clientes')
+                ->where('cedulaCliente', $cedula)
+                ->update(['direccionCliente' => $request->cliente['direccion']]);
+        if($resultado){
+            return response()->json([
+                'mensaje' => "Cliente Actualizado correctamente"
+            ], 200);
         }
         return response()->json([
-            'mensaje' => "Cliente no encontrado"
-            ], 400);
+        'mensaje' => "Cliente no encontrado"
+        ], 400);
     }
 
     public function eliminar($cedula){
-        $clienteExistente = Cliente::find($cedula);
-        if($clienteExistente){
-            $clienteExistente->delete();
+        
+        if(DB::table('clientes')->where('cedulaCliente', $cedula)->delete()){
             return response()->json([
             'mensaje' => "Cliente eliminado correctamente."
             ], 200);

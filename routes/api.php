@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FacturasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,10 @@ Route::prefix('/cliente')->group(function(){
     Route::post('/nuevo', [ClienteController::class, 'nuevo']);
     Route::put('/{cedula}', [ClienteController::class, 'actualizar']);
     Route::delete('/{cedula}', [ClienteController::class, 'eliminar']);
+});
+
+Route::get('/facturas', [FacturasController::class, 'index']);
+Route::prefix('/factura')->group(function(){
+    Route::post('/nueva', [FacturasController::class, 'nueva']);
+    Route::delete('/{id}', [FacturasController::class, 'eliminar']);
 });
